@@ -1,0 +1,50 @@
+name: call deployment pipeline
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - 'dev'
+    paths-ignore:
+      - '.github/**'
+  workflow_dispatch:
+    
+
+env:
+  DISPATCH_URL: "https://api.github.com/repos/brandon-bird-inf/iics-promotion-pipeline/actions/workflows/iics_deployment.yml/dispatches"
+  HEADERS: "Authorization: Bearer ${{ secrets.CICD_TRIGGER_SECRET }}" 
+  BODY: '{ "ref":"main", "inputs":{"committed_sha":"${{ github.sha }}"}}'
+  JENKINS_URL: http://vm-cicd-all-ip.eastus.cloudapp.azure.com:8080/job/infa_pipeline/buildWithParameters
+  AZDO_URL: https://dev.azure.com/diteam-dataops/iics-diteam/_apis/pipelines/9/runs?api-version=6.0-preview.1
+  AZDO_HEADERS: "Content-Type: application/json"
+  AZDO_BODY: '{ "templateParameters": {"COMMIT_HASH": "${{ github.sha }}"} }'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  call_deployment_pipeline:
+    name: Execute Deployment
+    environment:
+      name: development
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Run github workflow
+        if: startsWith(github.event.head_commit.message, 'deploy')
+       # run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
+        run  curl --location 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test' \
+              --header 'Content-Type: application/json' \
+              --header 'Authorization: Basic SUlDU19ERVZfVVNFUjo0SUlDU0BEZXY=' \
+              --header 'Cookie: ICRTSERVERID=IICS-taskflow17596280' \
+              --data '{"Name":"Sanjeev"}'
+                   
+      
+      - name: Run jenkins workflow
+        if: startsWith(github.event.head_commit.message, 'jenkins')
+        run: curl -X POST -L --user admin:${{ secrets.JENKINS_TRIGGER_SECRET }} ${{ env.JENKINS_URL }} -d "hash=${{ github.sha }}"
+
+      - name: Run azdo workflow
+        if: startsWith(github.event.head_commit.message, 'azdo')
+        run: curl -X POST -H '${{ env.AZDO_HEADERS }}' -L --user bbird:${{ secrets.AZDO_TRIGGER_SECRET }} ${{ env.AZDO_URL }} -d '${{ env.AZDO_BODY }}'
