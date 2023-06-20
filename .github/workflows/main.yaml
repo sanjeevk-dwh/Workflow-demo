@@ -42,10 +42,10 @@ jobs:
      #if: startsWith(github.event.head_commit.message, 'deploy')
      # run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
         run: curl -L -X POST "https://dm-us.informaticacloud.com/ma/api/v2/user/login" \
-        -H "Accept:application/json" \
-        -H "Content-Type:application/json" \
-        -H "Keep-Alive:t" \
-        --data-raw "{\"@type\":\"login\",\"username\":\"IICS_DEV_USER\",\"password\":\"4IICS@Dev\"}"
+        -H "Accept : application/json" \
+        -H "Content-Type : application/json" \
+        -H "Keep-Alive : t" \
+        --data-raw "{\"@type\" : \"login\",\"username\" : \"IICS_DEV_USER\",\"password\" : \"4IICS@Dev\"}"
                    
       
       - name: Run jenkins workflow
