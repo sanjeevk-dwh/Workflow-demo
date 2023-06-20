@@ -43,7 +43,7 @@ jobs:
      # run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
         run: curl --location 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test' \
         --header 'Content-Type: application/json' \
-        --data-raw "{\"@type\": \"login\",\"username\": \"IICS_DEV_USER\",\"password\": \"4IICS@Dev\"}"
+        --data-raw "{\"username\": \"IICS_DEV_USER\",\"password\": \"4IICS@Dev\"}"
       
       - name: Run jenkins workflow
         if: startsWith(github.event.head_commit.message, 'jenkins')
