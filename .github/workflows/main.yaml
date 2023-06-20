@@ -2,13 +2,19 @@ name: call deployment pipeline
 
 # Controls when the workflow will run
 #
+#on:
+#  #push:
+#   #branches:
+#     # - 'dev'
+#  # paths-ignore:
+#   # - '.github/**'
 on:
-  push:
-    branches:
-      - 'dev'
-    paths-ignore:
-      - '.github/**'
   workflow_dispatch:
+    inputs:
+      committed_sha:
+        description: "Hash to deploy"
+        type: string
+        required: true
     
 
 env:
