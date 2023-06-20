@@ -37,11 +37,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Run github workflow
-       #if: startsWith(github.event.head_commit.message, 'deploy')
-       # run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
-       run:  curl --location 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test' \
+     #if: startsWith(github.event.head_commit.message, 'deploy')
+     # run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
+        run:  curl --location 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test' \
           --header 'Content-Type:application/json' \
               --header 'Authorization:Basic SUlDU19ERVZfVVNFUjo0SUlDU0BEZXY=' \
               --header 'Cookie:ICRTSERVERID=IICS-taskflow17596280' \
