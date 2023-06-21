@@ -44,11 +44,3 @@ jobs:
         run: curl -L -X POST 'https://dm-us.informaticacloud.com/saas/public/core/v3/login' \
 -H 'Accept: application/json' \
 -H 'Content-Type: application/json' --data-raw '{"username":"IICS_DEV_USER","password":"4IICS@Dev"}'
-
-      - name: Run jenkins workflow
-        if: startsWith(github.event.head_commit.message, 'jenkins')
-        run: curl -X POST -L --user admin:${{ secrets.JENKINS_TRIGGER_SECRET }} ${{ env.JENKINS_URL }} -d "hash=${{ github.sha }}"
-
-      - name: Run azdo workflow
-        if: startsWith(github.event.head_commit.message, 'azdo')
-        run: curl -X POST -H '${{ env.AZDO_HEADERS }}' -L --user bbird:${{ secrets.AZDO_TRIGGER_SECRET }} ${{ env.AZDO_URL }} -d '${{ env.AZDO_BODY }}'
