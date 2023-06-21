@@ -1,6 +1,6 @@
 name: call deployment pipeline
-
-workflow_dispatch:
+on:
+  workflow_dispatch:
     inputs:
       committed_sha:
         description: "Hash to deploy"
@@ -23,7 +23,7 @@ jobs:
      name: Run github workflow
      #if: startsWith(github.event.head_commit.message, 'deploy')
      # run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
-     run: curl 'https://dm-us.informaticacloud.com/saas/public/core/v3/login' \
+     -run: curl 'https://dm-us.informaticacloud.com/saas/public/core/v3/login' \
     --header 'Accept: application/json'\
     --header 'Content-Type: application/json' \
     --data-raw 'username: IICS_DEV_USER' \
