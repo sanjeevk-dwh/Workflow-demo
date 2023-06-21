@@ -44,7 +44,6 @@ jobs:
         run: curl 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Basic SUlDU19ERVZfVVNFUjo0SUlDU0BEZXY=' \
---header 'Cookie: ICRTSERVERID=IICS-taskflow17596280' \
 --data '{"Name": "Sanjeev"}'
       
       - name: Run jenkins workflow
