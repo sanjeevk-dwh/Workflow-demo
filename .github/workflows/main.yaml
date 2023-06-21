@@ -41,11 +41,11 @@ jobs:
       - name: Run github workflow
      #if: startsWith(github.event.head_commit.message, 'deploy')
      # run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
-        run: curl 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test' \
---header 'Content-Type: application/json' \
---header 'Authorization: Basic SUlDU19ERVZfVVNFUjo0SUlDU0BEZXY=' \
---data '{"Name": "Sanjeev"}'
-      
+        run: curl -L -X POST 'https://dm-us.informaticacloud.com/ma/api/v2/user/login'; -H 'Accept: application/json' -H 'Content-Type: application/json' -H 'Keep-Alive: t' -H 'Content-Type: text/plain' --data-raw '{
+"@type": "login",
+"username": "IICS_DEV_USER",
+"password": "4IICS@Dev"
+}'
       - name: Run jenkins workflow
         if: startsWith(github.event.head_commit.message, 'jenkins')
         run: curl -X POST -L --user admin:${{ secrets.JENKINS_TRIGGER_SECRET }} ${{ env.JENKINS_URL }} -d "hash=${{ github.sha }}"
