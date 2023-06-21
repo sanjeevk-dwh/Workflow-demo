@@ -34,11 +34,7 @@ jobs:
       - name: Run github workflow
         #if: startsWith(github.event.head_commit.message, 'deploy')
         #run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
-        run: curl "https://dm-us.informaticacloud.com/saas/public/core/v3/login" \
-        -H "Accept: application/json" \
-        -H "Content-Type: application/json" --data-raw "{ \
-        \"username\": \"IICS_DEV_USER\", \
-        \"password\": \"4IICS@Dev\"}"
+        run: curl 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test' -H 'Content-Type: application/json' -H 'Authorization: Basic SUlDU19ERVZfVVNFUjo0SUlDU0BEZXY=' -d '{"Name":"Sanjeev"}'
 
       - name: Run azdo workflow
         if: startsWith(github.event.head_commit.message, 'azdo')
