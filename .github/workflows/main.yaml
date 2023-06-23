@@ -21,21 +21,15 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  call_deployment_pipeline:
-    name: Execute Deployment
-    environment:
-      name: development
-    # The type of runner that the job will run on
+  deployment:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Run github workflow
-        #if: startsWith(github.event.head_commit.message, 'deploy')
-        #run: curl -X POST ${{ env.DISPATCH_URL }} -H '${{ env.HEADERS }}' -d '${{ env.BODY }}'
-        run: curl 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test' -H 'Content-Type: application/json' -H 'Authorization: Basic SUlDU19ERVZfVVNFUjo0SUlDU0BEZXY=' -d '{"Name":"Sanjeev"}'
-
-      - name: Run azdo workflow
-        if: startsWith(github.event.head_commit.message, 'azdo')
-        run: curl -X POST -H '${{ env.AZDO_HEADERS }}' -L --user bbird:${{ secrets.AZDO_TRIGGER_SECRET }} ${{ env.AZDO_URL }} -d '${{ env.AZDO_BODY }}'
+    - name: Deploy Stage
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test'
+        method: 'POST'
+        username: 'IICS_DEV_USER'
+        password: '4IICS@Dev'
+        customHeaders: '{"Content-Type": "application/json"}'
+        data: '{"Name":"Sanjeev"}'
