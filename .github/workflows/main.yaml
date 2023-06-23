@@ -24,10 +24,9 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
-    - uses: .github/actions/checkout@v2
     - name: Deploy Stage
-      uses: .github/actions/http-request-action
       id: myRequest
+      uses: /fjogeleit_http-request-action/http-request-action
    
       with:
         url: 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test'
