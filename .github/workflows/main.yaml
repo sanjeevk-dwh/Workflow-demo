@@ -34,7 +34,7 @@ jobs:
         password: '4IICS@Dev'
         customHeaders: '{"Content-Type": "application/json"}'
         data: '{"Name":"Sanjeev"}'
-		
+    
     - name: Show Response
       run: |
       echo ${{ steps.myRequest.outputs.response }}
