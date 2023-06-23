@@ -26,7 +26,7 @@ jobs:
     steps:
     - name: Deploy Stage
       id: myRequest
-      uses: /fjogeleit_http-request-action/http-request-action
+      uses: sanjeevk-dwh/fjogeleit_http-request-action@v1
    
       with:
         url: 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test'
