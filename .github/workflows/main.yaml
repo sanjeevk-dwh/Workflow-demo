@@ -24,9 +24,9 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: .github/actions/checkout@v2
     - name: Deploy Stage
-      uses: ./.github/actions/http-request-action
+      uses: .github/actions/http-request-action
       id: myRequest
    
       with:
