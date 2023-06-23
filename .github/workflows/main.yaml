@@ -26,8 +26,7 @@ jobs:
     steps:
     - name: Deploy Stage
       id: myRequest
-      - uses: actions/checkout@v1
-      - uses: ./.github/actions/http-request-action
+      uses: ./.github/actions/http-request-action
       with:
         url: 'https://na1.dm-us.informaticacloud.com/active-bpel/rt/sanjeev_test'
         method: 'POST'
